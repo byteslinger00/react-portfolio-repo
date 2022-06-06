@@ -1,5 +1,7 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux"; 
 
 import { Home } from "../pages/home";
 import { Portfolio } from "../pages/portfolio";
@@ -25,9 +27,9 @@ const AnimatedSwitch = withRouter(({ location }) => (
       unmountOnExit
     >
       <Switch location={location}>
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
+        <Route exact path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route exact path="/" component={Home} />
         <Route path="/skills" component={Skills} />
         <Route path="/past" component={Past} />
         <Route path="/about" component={About} />
@@ -41,6 +43,13 @@ const AnimatedSwitch = withRouter(({ location }) => (
 ));
 
 function AppRoutes() {
+  const history = useHistory();
+  const userInfo = useSelector(state => state.auth);
+
+  if (!userInfo.loginStatus) {
+    history.push("/login")
+  }
+
   return (
     <div className="s_c">
       <AnimatedSwitch />

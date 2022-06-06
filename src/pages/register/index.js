@@ -5,10 +5,16 @@ import {useNavigate } from 'react-router-dom';
 import React, { Component } from 'react'
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from 'react-router-dom';
+import { register }  from '../../store/actions/auth.action'
 
 export const Register = () => {
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const handleSubmit = () => {
+        register({name, email, password})
+    }
     return (
-         
         <Container className=''>
             <form>
             <h3>Sign Up?</h3>
@@ -58,7 +64,7 @@ export const Register = () => {
                 </div>
             </div>
             <div className="d-grid">
-                <button type="submit" className="btn btn-primary" >
+                <button type="submit" className="btn btn-primary" onClick={handleSubmit} >
                 Sign Up
                 </button>
             </div>
